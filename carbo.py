@@ -16,18 +16,15 @@ window.title("Electric to Carbon Equivalent")
 window.geometry("900x500+300+200")
 window.resizable(False, False)
 
-def elec2Carb():
-	country = country_var.get()
-	if country == 'Select Country': country = "Indonesia"
-	# print(f'country: {country}')
-	unit = unit_var.get() 
-	if unit == 'Select Unit': unit = 'KWh'
-	# print(f'unt: {unit}')
+def elec2Carb(start, end, country, unit):
 	
-	start = 0 if not startField.get().isnumeric() else float(startField.get().isnumeric())
-	end = 1 if not endField.get().isnumeric() else float(endField.get())
-	# print(f"test electric val: {end - start}")
-
+	if country == 'Select Country': country = "Indonesia"
+	
+	if unit == 'Select Unit': unit = 'KWh'
+	
+	start = 0 if not start.isnumeric() else float(start)
+	end = 1 if not end.isnumeric() else float(end)
+	
 	url = "https://carbonsutra1.p.rapidapi.com/electricity_estimate"
 	RAPID_KEY = os.environ['CARBON_SUTRA_API_KEY']
 	RAPID_AUTH = os.environ['CARBON_SUTRA_AUTH']
@@ -43,9 +40,6 @@ def elec2Carb():
 	response = requests.request("POST", url, data=payload, headers=headers).json()
 	co2_kg = response["data"]["co2e_kg"]
 	Label(window, text=f"CO2 equivalent: {co2_kg} kg", font=("Arial", 18, "bold")).place(x=200, y=300)
-
-	# print(f'response: {response}')
-	# print(f'CO2 equivalent: {co2_kg} kg')
 
 # let's just make the damn UI 
 # mock up only
@@ -76,7 +70,9 @@ country_var = StringVar(window, "Select Country")
 country_menu = OptionMenu(window, country_var, *country_option).place(x=100, y=200)
 
 # button calc
-calc_button = Button(window, text="Calculate", command=elec2Carb).place(x=200, y=240)
+calc_button = Button(window, text="Calculate", command=\
+	lambda: elec2Carb(startField.get(), endField.get(), country_var.get(), unit_var.get()))
+calc_button.place(x=200, y=240)
 
 # loop
 window.mainloop()
