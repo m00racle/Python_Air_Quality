@@ -19,21 +19,20 @@ window.resizable(False, False)
 def elec2Carb():
 	country = country_var.get()
 	if country == 'Select Country': country = "Indonesia"
-	print(f'country: {country}')
+	# print(f'country: {country}')
 	unit = unit_var.get() 
 	if unit == 'Select Unit': unit = 'KWh'
-	print(f'unt: {unit}')
-	if valueField.get().isnumeric():
-		val = float(valueField.get())
-	else:
-		val = 1
-	print(f'val: {val}')
+	# print(f'unt: {unit}')
+	
+	start = 0 if not startField.get().isnumeric() else float(startField.get().isnumeric())
+	end = 1 if not endField.get().isnumeric() else float(endField.get())
+	# print(f"test electric val: {end - start}")
 
 	url = "https://carbonsutra1.p.rapidapi.com/electricity_estimate"
 	RAPID_KEY = os.environ['CARBON_SUTRA_API_KEY']
 	RAPID_AUTH = os.environ['CARBON_SUTRA_AUTH']
 
-	payload = f"country_name={country}&electricity_value={val}&electricity_unit={unit}"
+	payload = f"country_name={country}&electricity_value={end - start}&electricity_unit={unit}"
 	headers = {
 		"content-type": "application/x-www-form-urlencoded",
 		"Authorization": RAPID_AUTH,
@@ -43,10 +42,10 @@ def elec2Carb():
 
 	response = requests.request("POST", url, data=payload, headers=headers).json()
 	co2_kg = response["data"]["co2e_kg"]
-	Label(window, text=f"CO2 equivalent: {co2_kg} kg", font=("Arial", 18, "bold")).place(x=200, y=250)
+	Label(window, text=f"CO2 equivalent: {co2_kg} kg", font=("Arial", 18, "bold")).place(x=200, y=300)
 
-	print(f'response: {response}')
-	print(f'CO2 equivalent: {co2_kg} kg')
+	# print(f'response: {response}')
+	# print(f'CO2 equivalent: {co2_kg} kg')
 
 # let's just make the damn UI 
 # mock up only
@@ -55,25 +54,29 @@ title_text = Label(text="Electric to Carbon")
 title_text.config(font=("Arial", 18, "bold"), justify="left", fg="blue")
 title_text.place(x=20, y=50)
 
-# input kwh
-Label(window, text="insert value: ").place(x=20, y=100)
-valueField = Entry(window, justify="left", width=10, font=("arial", 12), border=2, bg="blue", fg="white")
-valueField.place(x=100, y=100)
-# Label(window, text="Unit: ").place(y=100, x=200)
+# input kwh start
+Label(window, text="Start Meter: ").place(x=20, y=100)
+startField = Entry(window, justify="left", width=10, font=("arial", 12), border=2, bg="blue", fg="white")
+startField.place(x=100, y=100)
+
+# input Kwh end
+Label(window, text="Last Meter: ").place(x=20, y=140)
+endField = Entry(window, justify="left", width=10, font=("arial", 12), border=2, bg="blue", fg="white")
+endField.place(x=100, y=140)
 
 # unit selection
 unit_option = ("KWh", "MWh")
 unit_var = StringVar(window, "Select Unit")
 unit_menu = OptionMenu(window, unit_var, *unit_option)
-unit_menu.place(x=200, y=100)
+unit_menu.place(x=200, y=120)
 
 # country selection
 country_option = ["Indonesia", "India", "China"]
 country_var = StringVar(window, "Select Country")
-country_menu = OptionMenu(window, country_var, *country_option).place(x=100, y=150)
+country_menu = OptionMenu(window, country_var, *country_option).place(x=100, y=200)
 
 # button calc
-calc_button = Button(window, text="Calculate", command=elec2Carb).place(x=200, y=200)
+calc_button = Button(window, text="Calculate", command=elec2Carb).place(x=200, y=240)
 
 # loop
 window.mainloop()
