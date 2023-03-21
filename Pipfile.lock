@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "266e8f997c102851b3c6d1f42af72eb845142790d6321779ec3561b531124f30"
+            "sha256": "6ec1dbed92d713a58d7c395e2f6aec7ae5278a45b61c5f53ce9099287c942bb5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -171,15 +171,31 @@
                 "sha256:f8303414c7b03f794347ad062c0516cee0e15f7a612abd0ce1e25caf6ceb47df",
                 "sha256:fca62a8301b605b954ad2e9c3666f9d97f63872aa4efcae5492baca2056b74ab"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_full_version >= '3.7.0'",
             "version": "==3.1.0"
+        },
+        "customtkinter": {
+            "hashes": [
+                "sha256:30fe0d40f0b43b60177e87013e932377a3ae8bf46921528488ae1adbb0aeafdf",
+                "sha256:eedaa11edce76b6882a605864a11b4859643ba0f4f456841aad51d89a758d32c"
+            ],
+            "index": "pypi",
+            "version": "==5.1.2"
+        },
+        "darkdetect": {
+            "hashes": [
+                "sha256:a7509ccf517eaad92b31c214f593dbcf138ea8a43b2935406bbd565e15527a85",
+                "sha256:b5428e1170263eb5dea44c25dc3895edd75e6f52300986353cd63533fe7df8b1"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==0.8.0"
         },
         "geographiclib": {
             "hashes": [
                 "sha256:6b7225248e45ff7edcee32becc4e0a1504c606ac5ee163a5656d482e0cd38734",
                 "sha256:f7f41c85dc3e1c2d3d935ec86660dc3b2c848c83e17f9a9e51ba9d5146a15859"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_full_version >= '3.7.0'",
             "version": "==2.0"
         },
         "geopy": {
@@ -311,7 +327,7 @@
                 "sha256:2ee892cd5f29f3373097f5a814697e397cf3ce313616df0af11231e2ad118077",
                 "sha256:b78aaa36f6b90a074c1fa651168723acbf45d14cb1196b6f02c0fd07f17623b2"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_full_version >= '3.7.0'",
             "version": "==67.6.0"
         },
         "timezonefinder": {
